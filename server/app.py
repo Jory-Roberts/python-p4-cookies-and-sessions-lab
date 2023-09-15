@@ -35,12 +35,12 @@ def show_article(id):
     session["page_views"] += 1
 
     if session["page_views"] <= 3:
-        article = Article.query.filter(Article.id == id).first().to_dict()
+        article = Article.query.filter_by(id=id).first().to_dict()
 
         if article is None:
             return {"message": "Article not found"}, 404
 
-        return make_response(jsonify(article), 200)
+        return make_response(article, 200)
 
     return {"message": "Maximum pageview limit reached"}, 401
 
